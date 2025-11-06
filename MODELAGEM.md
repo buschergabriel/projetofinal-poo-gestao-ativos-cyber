@@ -15,6 +15,62 @@ Seu objetivo é orientar a implementação do módulo `models.py`, garantindo qu
 ---
 
 ## 2. Diagrama Entidade-Relacionamento (DER)
+> ⚠️ *Nota técnica:* o parser do Draw.io não suporta a sintaxe de herança (`<|--`) e comentários inline.  
+> Por isso, a herança é documentada na Seção 3, mas **não é exibida visualmente** no diagrama abaixo.
+
+---
+
+
+mermaid
+erDiagram
+
+Departamento {
+    int id PK
+    string nome
+}
+
+Funcionario {
+    int id PK
+    string nome
+    string email
+    int id_departamento FK
+}
+
+Ativo {
+    int id PK
+    string nome
+    string criticidade
+    string tipo
+    int id_funcionario FK
+}
+
+AtivoHardware {
+    int id PK
+    string os
+    string ip
+    string modelo
+}
+
+AtivoSoftware {
+    int id PK
+    string versao
+    date data_expiracao_licenca
+    string tipo_licenca
+}
+
+Vulnerabilidade {
+    int id PK
+    string cve_id
+    string severidade
+}
+
+Departamento ||--o{ Funcionario : "1N"
+Funcionario ||--o{ Ativo : "1N"
+Ativo }|--|{ Vulnerabilidade : "NM"
+
+
+---
+
 
 ### 2.1. Entidades Principais
 
@@ -145,3 +201,4 @@ O sistema é composto por **6 entidades** principais:
 
  **Status Atual:** Modelagem de dados aprovada e pronta para codificação.  
  **Referências:** ISO 27001 (A.8), SQLAlchemy ORM Docs, Critérios Floricultura Flor de Lótus.
+
